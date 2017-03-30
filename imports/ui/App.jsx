@@ -97,7 +97,7 @@ class App extends Component {
 						<form action="https://formspree.io/rodrigo@dediddo.com" method="POST">
 							<label htmlFor="request-text">What's your feature request?</label>
 							<input name="request" id="request-text" type="textArea"/>
-							<input name="email" type="hidden" value={this.props.currentUser.username}/>
+							<input name="email" type="hidden" value={this.props.currentUser.emails[0].address}/>
 							<input type="hidden" name="_next" value="/" />
 							<button className="login-button login-button-form-submit" id="request-submit">Send</button>
 							<p className="footnote">or email me directly at rodrigo@dediddo.com</p>
