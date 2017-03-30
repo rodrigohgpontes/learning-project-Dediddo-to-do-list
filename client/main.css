@@ -73,6 +73,21 @@ footer a {
 	color: #777;
 } 
  
+ a {
+	color: #3400BD; 
+ }
+ 
+ #login-sign-in-link {
+	 font-size: 16px;
+	 color: #3400BD;
+	 font-weight: 700;
+	 font-family: 'Comfortaa', Arial;
+ }
+ 
+ #login-sign-in-link:after {
+	 content: ' Sign up';
+ }
+ 
  .landing-copy {
 	 font-size: 19px;
  }

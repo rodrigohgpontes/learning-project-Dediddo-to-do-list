@@ -178,7 +178,7 @@ class App extends Component {
 					</div>
 				</div>
 				<div className="row no-gutters landing-copy">
-					<h2><AccountsUIWrapper /> and you can start using <span className="de">De</span><span className="did">did</span><span className="do">do</span>, <strong>for free</strong>, right away!</h2>
+					<h2><a href="#render-target">Sign up above</a> and you can start using <span className="de">De</span><span className="did">did</span><span className="do">do</span>, <strong>for free</strong>, right away!</h2>
 					
 					 <img src="/dediddo-logo.png" alt="dediddo" height="200" width="auto"/>
 					
