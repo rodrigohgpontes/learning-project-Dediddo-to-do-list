@@ -310,22 +310,23 @@ class Task extends Component {
 					  
 					{ !this.props.task.deadline || this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT' ?	
 						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-						  <input type="submit" value=""/>
+						  
 						  <input
 							type="date"
 							ref="deadlineInput"
 						  />
-						  
+						  <input type="submit" value="send"/>
 						</form> : 
 						this.state.showDeadlineInput ?
 						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-						  <input type="submit" value=""/>
+						  
 						  <input
 							type="date"
 							ref="deadlineInput"
 							defaultValue={this.handleEditDeadline()}
 							autoFocus
 						  />
+						  <input type="submit" value="send"/>
 						</form> :
 						<span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()}:</span>
 					}
