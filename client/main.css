@@ -44,6 +44,14 @@ header p {
 	cursor: pointer;
 }
 
+#forgot-password-link {
+	display:none;
+}
+
+.footnote {
+	color: #bbb;
+	font-size: 0.7em;
+}
 
 footer {
 	color: #bbb;

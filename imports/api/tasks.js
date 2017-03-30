@@ -36,8 +36,10 @@ if (Meteor.isServer) {
     });
   });
 
-	process.env.MAIL_URL="smtp://admin@dediddo.com:*n!Pq7M8@smtp.zoho.com:465/";
- 
+	Meteor.startup(function() {
+		process.env.MAIL_URL="smtp://admin%40dediddo.com:*n!Pq7M8@smtp.zoho.com:465";
+	});
+	
 }
 
 Meteor.methods({

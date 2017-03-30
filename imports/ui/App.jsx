@@ -94,10 +94,12 @@ class App extends Component {
 				{ this.state.featureform ?
 					<div id="request-form" className="accounts-dialog">
 						<a className="login-close-text" onClick={this.handleFeatureRequest.bind(this)}>Close</a>
-						<form>
+						<form action="https://formspree.io/rodrigo@dediddo.com" method="POST">
 							<label htmlFor="request-text">What's your feature request?</label>
-							<input id="request-text" type="textArea"/>
+							<input name="request" id="request-text" type="textArea"/>
+							<input name="email" type="hidden" value={this.props.currentUser.username}/>
 							<button className="login-button login-button-form-submit" id="request-submit">Send</button>
+							<p className="footnote">or email me directly at rodrigo@dediddo.com</p>
 						</form>
 						
 				</div> : '' }
