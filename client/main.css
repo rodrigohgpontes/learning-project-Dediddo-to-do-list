@@ -88,6 +88,7 @@ footer a {
 	font-size: 1.25em;
  }
  
+ 
    .landing-copy p {
 	width: 85%;
 	margin: 0 auto 20px;
@@ -96,6 +97,10 @@ footer a {
  
  .landing-copy span {
 	font-family: 'Comfortaa', sans-serif;	 
+ }
+ 
+ .landing-copy img {
+	 margin: 20px auto 60px;
  }
  
  .landing-columns p {
