@@ -176,7 +176,14 @@ input {
 	display: none;
 }
  
+.date-confirm {
+	
+	width: 50%!important;
+	text-align: left;
+	color: #555;
+	padding: 2px 0 10px 4px!important;
 
+}
  
 @media (max-width: 600px) {
 

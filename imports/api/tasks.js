@@ -21,7 +21,6 @@ if (Meteor.isServer) {
   Meteor.publish('details', function detailsPublication() {
     return Details.find({
       $or: [
-        { private: { $ne: true } },
         { owner: this.userId },
       ],
     });
@@ -30,7 +29,6 @@ if (Meteor.isServer) {
   Meteor.publish('dids', function didsPublication() {
     return Dids.find({
       $or: [
-        { private: { $ne: true } },
         { owner: this.userId },
       ],
     });
