@@ -88,25 +88,58 @@ footer a {
 	 content: ' Sign up';
  }
  
- .landing-copy {
-	 font-size: 19px;
+ .landing-page {
+	 width:140%;
+	 max-width: 90vw;
+	 /*margin-left: -20%;*/
  }
  
- .landing-copy h1 {
-	font-family: 'Comfortaa', sans-serif;
-	margin: 60px auto 0;
-	font-size: 2em;
+  
+ @media (min-width: 600px) {
+	 .landing-page {
+		 margin-left: -20%;
+	 }	 
  }
  
-  .landing-copy h2 {
-	margin: 10px auto 60px;
-	font-size: 1.25em;
- }
+
+.landing-copy h1 {
+	margin: 30px auto 0;
+	font-size: 50px;
+	text-align: center;
+
+}
+
+.landing-copy h2 {
+	margin: auto;
+	text-align: center;
+	font-size: 25px;
+	margin-bottom: 150px;
+}
+
+.landing-copy h3 {
+	margin: auto;
+	text-align: center;
+	font-size: 30px;
+}
+
+h4 {
+	text-align: center;
+	margin: 8px auto 16px;
+}
+
+.landing-copy h4 {
+	font-size: 22px;
+}
  
+ .landing-copy h5 {
+	 margin: 20px auto;
+	 text-align: center;
+	 font-size: 22px;
+ }
  
    .landing-copy p {
-	width: 85%;
-	margin: 0 auto 20px;
+	width: 75%;
+	margin: 0 auto 10px;
 	font-size: 1em;
  }
  
@@ -125,6 +158,81 @@ footer a {
  .landing-title {
 	 width: 100%;
 	 margin: 30px auto 20px;
+ }
+ 
+ .how {
+	 width: 120%;
+	 margin: 40px auto 10px;
+	 margin-left: -10%;
+	 padding: 30px 22.5%;
+	background-size: cover;
+ 	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAADCAYAAABfwxXFAAAAUUlEQVQYVx3IIQoAIAxG4X+IFuNgu/8tdoRdwG4yGGyCYFD0wSsf9d5Pzhkxxv8YA+6OEAKotXZEBK+11seUEswMVEo5D1QVe2/UWsHMmHPiAgOUHr5q+190AAAAAElFTkSuQmCC");
+ }
+ 
+ .how-cards div {
+	background: #FBFBFB;
+	border-radius: 5px;
+	border: solid 1px #ccc;
+	margin: 2px auto;
+	padding: 1px;
+	font-size: 14px;
+ }
+ 
+.how-cards div p {
+	 margin: 5px;
+}
+ 
+.how-cards div p strong{
+	 font-family: 'Comfortaa', Arial;
+	 color: #000;
+ }
+
+  .how span {
+	font-family: 'Comfortaa',Arial;
+
+ }
+ 
+  .benefits {
+	 width: 120%;
+	 margin: 0 auto;
+	 margin-left: -10%;
+	 padding: 30px 22.5%;
+	background-size: cover;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAADCAYAAABfwxXFAAAATklEQVQYVxXMsQ0AEBBA0S8SMYaNrXSbiEKplIsjiPYVz805bwiBcw57b9ZamBkiglPV+7H3jvceVSXGSM4ZZ2a3lEJrjT+klKi1MsbgAb27L4x7J816AAAAAElFTkSuQmCC");
+ }
+ 
+ 
+   .whynot {
+	 width: 120%;
+	 margin: 10px auto 40px;
+	 margin-left: -10%;
+	 padding: 30px 22.5%;
+	 background-size: cover;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAADCAYAAABfwxXFAAAAU0lEQVQYVx3KMQ5AERBAwbcREpHsGVxAxZ21ej2F02gp/ORPPdJ7fzlnvPeICNZa1lq01pAxxjPG4JwjpcS99w9zTqTW+vbelFKIMRJC4JyDqvIBsOobr8B0mXsAAAAASUVORK5CYII=");
+ }
+ 
+ .whynot p:first-of-type, .benefits p:first-of-type {
+	 font-weight: bold;
+ }
+ 
+ .how h4, .benefits h4, .whynot h4 {
+	 margin-bottom: 38px;
+	 font-family: 'Comfortaa', Arial;
+	 color: black;
+ }
+ 
+ .cta h3 {
+	 margin:auto;
+	 text-align: center;
+ }
+ 
+ .cta h3 span {
+	 font-family: 'Comfortaa', Arial;	 
+ }
+ 
+ .cta img {
+	margin: 20px auto;
+	display: block;
  }
  
 #login-buttons {
