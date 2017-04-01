@@ -122,10 +122,10 @@ class App extends Component {
 			<div className="landing-page">
 				<div className="row no-gutters landing-copy">
 					<h1><span className="de">De</span><span className="did">did</span><span className="do">do</span> is the minimal sales tool</h1>
-					<h2>for non-sales people: founders, entrepreneurs, marketeers, fundraisers</h2>
+					<h2>for non-sales people: founders, entrepreneurs, marketers, fundraisers</h2>
 					<div className="img-shadow"><img className="img-fluid" src="/dediddo-screenshot.png" alt="dediddo" /></div>
 					<h3>Easy, obvious organizer for your sales contacts and to-dos.</h3>
-					<h4>You will have peace of mind with this clear, easy to use, performance improver.</h4>
+					<h4>You will have peace of mind while managing your contacts and improve your performance.</h4>
 				</div>	
 				<section className="how">
 					<h4>How it works: the <em>detail-did-do</em> system</h4>
@@ -160,7 +160,7 @@ class App extends Component {
 							<p>Dediddo makes you remember everything.<br></br>You will look like you have a great memory, creating a personal relationship with the prospect.</p>
 						</div>
 						<div className="col-sm-4">
-							<p>Be dilligent</p>
+							<p>Be diligent</p>
 							<p>Dediddo tells you what to do next.<br></br>Just open it and you will know what to do next, no excuses, no <em>"Let me take some time to organize my contacts"</em> procrastination.</p>
 						</div>
 					</div>
