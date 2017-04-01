@@ -123,6 +123,7 @@ class App extends Component {
 				<div className="row no-gutters landing-copy">
 					<h1><span className="de">De</span><span className="did">did</span><span className="do">do</span> is the minimal sales tool</h1>
 					<h2>for non-sales people: founders, entrepreneurs, marketeers, fundraisers</h2>
+					<div className="img-shadow"><img className="img-fluid" src="/dediddo-screenshot.png" alt="dediddo" /></div>
 					<h3>Easy, obvious organizer for your sales contacts and to-dos.</h3>
 					<h4>You will have peace of mind with this clear, easy to use, performance improver.</h4>
 				</div>	
@@ -184,7 +185,7 @@ class App extends Component {
 				
 				<section className="cta">
 					<h3><a href="#render-target">Sign up above</a> and you can start using <span className="de">De</span><span className="did">did</span><span className="do">do</span>, <strong>for free</strong>, right away!</h3>
-					<img src="/dediddo-logo.png" alt="dediddo" height="200" width="auto" /> 
+					<img className="img-fluid" src="/dediddo-logo.png" alt="dediddo" height="200" width="auto" /> 
 				</section>
 				
 				<section className="disclaimers">
