@@ -78,7 +78,7 @@ class App extends Component {
  
   render() {
     return (
-         <div className="container board">
+         <div className="container-fluid board">
 			
 			<header>
 			  <p className="logo">
@@ -88,11 +88,19 @@ class App extends Component {
 			  
 			  <AccountsUIWrapper />
 			
-				{ this.props.currentUser ? 
-				<p className="request-open-form" onClick={this.handleFeatureRequest.bind(this)}>Do you have a feature request?</p> : ''}
+
+			  
+			</header>		
 			
+						
+			
+			  { this.props.currentUser ? 
+				<div className="row options">
+				
+					<p className="request-open-form col-6 text-align-left" onClick={this.handleFeatureRequest.bind(this)}>Do you have a feature request?</p>
+
 				{ this.state.featureform ?
-					<div id="request-form" className="accounts-dialog">
+					<div id="request-form" className="accounts-dialog col-10 text-align-left">
 						<a className="login-close-text" onClick={this.handleFeatureRequest.bind(this)}>Close</a>
 						<form action="https://formspree.io/rodrigo@dediddo.com" method="POST">
 							<label htmlFor="request-text">What's your feature request?</label>
@@ -103,20 +111,18 @@ class App extends Component {
 							<p className="footnote">or email me directly at rodrigo@dediddo.com</p>
 						</form>
 						
-				</div> : '' }
-			  
-			</header>		
-			
-			  { this.props.currentUser ? 
-			  <label className="hide-completed justify-content-end">
-				<input
-				  type="checkbox"
-				  readOnly
-				  checked={this.state.hideCompleted}
-				  onClick={this.toggleHideCompleted.bind(this)}
-				/>
-				<em> Hide Subjects without a deadline</em>
-			  </label> : '' }				
+					</div> : '' }					
+				
+					<label className="hide-completed  col-6 text-align-right justify-content-end">
+						<input
+						  type="checkbox"
+						  readOnly
+						  checked={this.state.hideCompleted}
+						  onClick={this.toggleHideCompleted.bind(this)}
+						/>
+						<em> Hide Subjects without a deadline</em>
+					</label> 
+				</div> : '' }				
 
 			{ !this.props.currentUser ? 
 			<div className="landing-page">
@@ -134,15 +140,15 @@ class App extends Component {
 					<p>You have a list of Subjects, each with 3 columns: <span>Details</span>, <span >did</span> and <span >do</span></p>
 									
 					<div className="row how-cards">  
-						<div className=" col-sm-4">
+						<div className=" col-lg-4">
 								<p><strong>Details</strong> of the subject</p>
 								<p>In this column, you save all more permanent, basic info about the Subject.</p>
 						</div>
-						<div className=" col-sm-4">
+						<div className=" col-lg-4">
 								<p>All you ever <strong>did</strong></p>
 								<p>Here you register all interactions you had with the subject.</p>
 						</div>
-						<div className=" col-sm-4">
+						<div className=" col-lg-4">
 								<p>What to <strong>do</strong> next</p>
 								<p>Here goes your next action with the deadline you set for it.</p>
 						</div>
@@ -151,15 +157,15 @@ class App extends Component {
 				<section className="benefits">
 					<h4>Perform better on your sales</h4>
 					<div className="row">
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>Be organized</p>
 							<p>Dediddo makes you organized by design.<br></br>You may be a mess with your personal stuff, but Dediddo makes impossible for you to be disorganized with your sales.</p>
 						</div>
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>Stay updated</p>
 							<p>Dediddo makes you remember everything.<br></br>You will look like you have a great memory, creating a personal relationship with the prospect.</p>
 						</div>
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>Be diligent</p>
 							<p>Dediddo tells you what to do next.<br></br>Just open it and you will know what to do next, no excuses, no <em>"Let me take some time to organize my contacts"</em> procrastination.</p>
 						</div>
@@ -168,15 +174,15 @@ class App extends Component {
 				<section className="whynot">
 					<h4>Why not just use a spreadsheet?</h4>
 					<div className="row">
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>Better interface</p>
 							<p>Imagine you have to register 5 interactions. Will each of them be in its own column? And when it becomes 10? Or all that text in one single cell? Not going to work.</p>
 						</div>
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>No setup time</p>
 							<p>If you start now, how long will it take to make your spreadsheet just the way you want? Are you sure this is the best way to spend your time? </p>
 						</div>
-						<div className="col-sm-4">
+						<div className="col-lg-4">
 							<p>Easier to access</p>
 							<p>If you use Excel, will you be able to open the file anywhere? If you use Google Spreadsheet, how easy really is to find the file in your Google Drive and open it?</p>
 						</div>
@@ -233,7 +239,7 @@ class App extends Component {
 						
 					</div> : '' }
 					
-				</div> : '' }
+			</div> : '' }
 			
 			
           { this.props.currentUser ?
