@@ -67,10 +67,9 @@ class Task extends Component {
 	event.preventDefault();
 	
     // Find the text field via the React ref
-    const deadline = new Date(ReactDOM.findDOMNode(this.refs.deadlineInput).value+"T01:00:00");
+    const deadline = new Date(ReactDOM.findDOMNode(this.refs.deadlineInput).value);
     Meteor.call('tasks.setDeadline', this.props.task._id, deadline);
 	this.setState({showDeadlineInput: false});
-
   }	
   
   handleEditDeadline() {
@@ -78,10 +77,15 @@ class Task extends Component {
 	var defaultYear = this.props.task.deadline.getFullYear();
 	var defaultMonth = this.props.task.deadline.getMonth()+1;
 	var defaultDate = this.props.task.deadline.getDate();
+	var defaultHour = this.props.task.deadline.getHours();
+	var defaultMinute = this.props.task.deadline.getMinutes();
 	if (defaultMonth < 10) defaultMonth = "0"+defaultMonth;
 	if (defaultDate < 10) defaultDate = "0"+defaultDate; 
-	defaultString = defaultYear+"-"+defaultMonth+"-"+defaultDate;
+	if (defaultHour < 10) defaultHour = "0"+defaultHour;
+	if (defaultMinute < 10) defaultMinute = "0"+defaultMinute;	
+	defaultString = defaultYear+"-"+defaultMonth+"-"+defaultDate+"T"+defaultMinute+":"+defaultHour+":00";
 	//if (this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT') defaultString = null;
+	console.log(defaultString);
 	return defaultString;
 	
   }
@@ -312,23 +316,23 @@ class Task extends Component {
 						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
 						  
 						  <input
-							type="date"
+							type="datetime-local"
 							ref="deadlineInput"
 						  />
-						  <input className="date-confirm" type="submit" value="enter deadline"/>
+						  <input type="submit" />
 						</form> : 
 						this.state.showDeadlineInput ?
 						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
 						  
 						  <input
-							type="date"
+							type="datetime-local"
 							ref="deadlineInput"
 							defaultValue={this.handleEditDeadline()}
 							autoFocus
 						  />
-						  <input className="date-confirm" type="submit" value="enter deadline"/>
+						  <input type="submit" />
 						</form> :
-						<span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()}:</span>
+						<span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()} - {this.props.task.deadline.toLocaleTimeString().slice(0, -3)}</span>
 					}
 
 					
