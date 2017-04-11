@@ -41,7 +41,7 @@ export default class Landing extends Component {
 				<div className="row justify-content-start">
 				  <div className="offset-md-2 col-md-8">
 					<h4>
-					  <span className="logo-text">Dediddo</span> is perfect for recurrent tasks and complex tasks that require more than a bullet point reminder.
+					  <span className="logo-text">Dediddo</span> is perfect for recurring tasks and complex tasks that require more than a bullet point reminder.
 					</h4> 
 				  </div>
 				</div>
@@ -118,7 +118,7 @@ export default class Landing extends Component {
 							NB: <span className="logo-text">Dediddo</span> is in the Alpha phase of its development.
 						</p>
 					   <p>
-						 <span className="logo-text">Dediddo</span> was developed to fulfill a need for a to-do list that could better handle recurrent and complex tasks.  
+						 <span className="logo-text">Dediddo</span> was developed to fulfill a need for a to-do list that could better handle recurring and complex tasks.  
 					   </p>
 						<h6>
 							Pricing
