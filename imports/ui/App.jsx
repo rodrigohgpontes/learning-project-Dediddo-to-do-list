@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       hideCompleted: false,
 	  featureform: false,
+	  tagFilter: [],
     };
   }	
 	
@@ -36,19 +37,66 @@ class App extends Component {
   }	
   
     toggleHideCompleted() {
-    this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
+		this.setState({
+		  hideCompleted: !this.state.hideCompleted,
+		});
   }
  
+	toggleTagFilter(tagText) {
+		var newTagFilter = this.state.tagFilter.slice();
+		if (this.state.tagFilter.indexOf(tagText) === -1) {
+			newTagFilter.push(tagText);
+		} else {
+			newTagFilter.splice(this.state.tagFilter.indexOf(tagText),1);
+		}
+		
+		this.setState({
+			tagFilter: newTagFilter,
+		});	
+
+  }
+	
+	renderTagMenu() {
+		
+		let allTags = [];
+		
+		this.props.tasks.map((task) => {
+			for (var k = 0; k<task.tags.length; k++) {
+				if (allTags.indexOf(task.tags[k]) === -1) allTags.push(task.tags[k]);
+			}
+		});
+
+		return allTags.map((tag, index) => {
+		return <p key={index} ref={tag} onClick={() => {this.handleTagClick(tag)}}>{tag}</p>
+		});
+		
+	}
+	
+	handleTagClick(tag) {
+		this.refs[tag].classList.toggle('tagactive');
+		this.toggleTagFilter(tag);
+		
+	}
 	
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
       filteredTasks = filteredTasks.filter(task => task.deadline);
 	  filteredTasks = filteredTasks.filter(task => task.deadline.toUTCString() !== 'Thu, 01 Jan 1970 00:00:00 GMT');
-
     }
+	
+	if (this.state.tagFilter.length > 0) {
+		var tempTagFilter = this.state.tagFilter.slice();
+		filteredTasks = filteredTasks.filter(function (task) {
+			for (var i = 0; i<task.tags.length;i++) {
+				for (var j = 0;j<tempTagFilter.length;j++){
+					if(task.tags[i] === tempTagFilter[j]) return true;
+				}
+				
+			}
+		});
+    }
+	
     return filteredTasks.map((task) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
@@ -117,6 +165,11 @@ class App extends Component {
 						<em> Hide Subjects without a deadline</em>
 					</label> 
 				</div> 				
+		  
+					<div className="tagmenu">
+						<p>All tags:</p>
+						{this.renderTagMenu()}
+					</div>  
 		  
 				<div>
 					<div className="row no-gutters columns-title">

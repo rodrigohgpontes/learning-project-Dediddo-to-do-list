@@ -56,13 +56,13 @@ export default class Landing extends Component {
 				  <h6 className="text-center"><span className="logo-text">Dediddo</span> is short for <span className="logo"><span className="de">Details</span> - <span className="did">Did</span> - <span className="do">Do</span></span> system.</h6>
 				  <div className="row">
 					<div className="col-sm-4">
-						<p><span className="logo-text">Details</span> is where you define the macro task and include any relevant, more permanent details.</p>
+						<p><span className="logo-text"><span className="de">Details</span></span> is where you define the macro task and include any relevant, more permanent details.</p>
 					</div>
 					<div className="col-sm-4">
-						<p><span className="logo-text">Did</span> is where you keep your task record, with any info that might be useful for future reference.</p>
+						<p><span className="logo-text"><span className="did">Did</span></span> is where you keep your task record, with any info that might be useful for future reference.</p>
 					</div>
 					<div className="col-sm-4">
-						<p><span className="logo-text">Do</span> is where you list the more immediate to-do: your next action with a deadline.</p>
+						<p><span className="logo-text"><span className="do">Do</span></span> is where you list the more immediate to-do: your next action with a deadline.</p>
 					</div>					
 				  </div>
 				  <div className="row">

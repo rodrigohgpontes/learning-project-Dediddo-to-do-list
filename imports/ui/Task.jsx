@@ -83,9 +83,8 @@ class Task extends Component {
 	if (defaultDate < 10) defaultDate = "0"+defaultDate; 
 	if (defaultHour < 10) defaultHour = "0"+defaultHour;
 	if (defaultMinute < 10) defaultMinute = "0"+defaultMinute;	
-	defaultString = defaultYear+"-"+defaultMonth+"-"+defaultDate+"T"+defaultMinute+":"+defaultHour+":00";
+	defaultString = defaultYear+"-"+defaultMonth+"-"+defaultDate+"T"+defaultHour+":"+defaultMinute+":00";
 	//if (this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT') defaultString = null;
-	console.log(defaultString);
 	return defaultString;
 	
   }
@@ -108,6 +107,39 @@ class Task extends Component {
 
   }	    
 
+ renderTags() {
+    let tags = this.props.task.tags;
+
+    return tags.map((tag, index) => {
+
+      return (
+
+			<p key={index}>{tag}
+				<button type="button" aria-label="Close" className="delete-detail close align-self-end" onClick={() => {this.deleteThisTag(tag)}}>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</p>
+
+      );
+    });
+  }    
+  
+  handleSubmitTag(event) {
+    event.preventDefault();
+ 
+    // Find the text field via the React ref
+    const tag = ReactDOM.findDOMNode(this.refs.newTagInput).value.trim() || "";
+	const taskID = ReactDOM.findDOMNode(this.refs.taskIDNewTagInput).value;
+    if (tag !== "") Meteor.call('tasks.setTag', tag, taskID);
+	
+    // Clear form
+    ReactDOM.findDOMNode(this.refs.newTagInput).value = '';
+  }
+  
+    deleteThisTag(tagText) {
+    Meteor.call('tasks.removeTag', this.props.task._id, tagText);
+  }		
+  
   renderDetails() {
     let filteredDetails = this.props.details;
     filteredDetails = filteredDetails.filter(detail => detail.owner === this.props.task.owner);
@@ -255,7 +287,7 @@ class Task extends Component {
 						  <input
 							type="text"
 							ref="textInput"
-							placeholder="insert subject name"
+							placeholder="insert task title"
 							defaultValue={this.handleEditText()}
 							autoFocus
 						  />
@@ -263,7 +295,27 @@ class Task extends Component {
 							
 						</form> :
 						<p onClick={() => this.setState({showTextInput: true})}>{this.props.task.text}</p>
-					}					
+					}
+
+					{ 	this.props.task.tags ?
+					<div className="tags">
+						{this.renderTags()}
+					
+						<form className="new-task" onSubmit={this.handleSubmitTag.bind(this)}>
+						  <input 
+							type="text"
+							ref="newTagInput"
+							placeholder="add new tag"
+						  />
+						  <input
+							type="hidden"
+							ref="taskIDNewTagInput"
+							value={this.props.task._id}
+							
+						  />						  
+						</form>	
+					</div> : ''
+					}
 					
 					{this.renderDetails()}
 					  
@@ -286,9 +338,7 @@ class Task extends Component {
                 </div>
                 <div className="did-column col-4">
 					<div className="card">
-					  
-						{this.renderDids()}
-					  
+
 						<form className="new-task" onSubmit={this.handleSubmitDid.bind(this)}>
 						  <input 
 							
@@ -302,7 +352,10 @@ class Task extends Component {
 							value={this.props.task._id}
 							
 						  />						  
-						</form>					  
+						</form>		
+					  
+						{this.renderDids()}
+						
 					  
 					</div>                  
                 </div>
@@ -447,8 +500,8 @@ export default createContainer(() => {
   Meteor.subscribe('dids');
   
   return {
-    details: Details.find({}, { sort: { createdAt: -1 } }).fetch(),
-	dids: Dids.find({}, { sort: { createdAt: 1 } }).fetch(),
+    details: Details.find({}, { sort: { createdAt: 1 } }).fetch(),
+	dids: Dids.find({}, { sort: { createdAt: -1 } }).fetch(),
    // incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),	
   };

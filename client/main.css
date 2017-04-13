@@ -176,8 +176,51 @@ h4 {
   font-size: smaller;
 }
  
+  .tagmenu p {
+	 display: inline-block;
+	 font-size: 1em;
+ 	 background-color: #fafafa;
+	 border-radius: 4px;
+	 margin: 0 4px 10px;
+	 padding: 3px 6px;
+	 min-width: 100px;
+	 text-align: center;
+	 cursor: pointer;
+ }
  
+   .tagmenu p:first-of-type {
+	 display: inline-block;
+	 background-color: white;
+	 min-width: 40px;
+	 cursor: default;
+ }
+ 
+ .tagactive {
+	color: white;
+	 background-color: #a9b7c0!important;
+ }
+ 
+ .tags p {
+	 display: inline-block;
+	 font-size: 0.8em;
+	 padding: 1px 3px;
+ 	 background-color: rgba(255,255,255,0.4);
+	 border-radius: 4px;
+ }
+ 
+  .tags button {
+	 margin-left: 4px;
+ }
+ 
+ .tags form {
+	display: inline-block;
+	font-size: 0.8em;
+	margin: 0;
+ }
 
+ .tags input {
+	 padding: 0!important;
+ }
  
 .new-task input {
   box-sizing: border-box;
@@ -248,18 +291,20 @@ input {
 
 .logo-text {
   font-family: 'Comfortaa', sans-serif;	
+  font-size: 90%;
 }
 
-.logo .de {
+.logo-text .de, .logo .de {
   color: #efd9c1;
-}
-.logo .did {
-  color: #c7d8c6;
-}
-.logo .do {
-  color: #a9b7c0;
   font-weight: bold;
-  
+}
+.logo-text .did, .logo .did {
+  color: #c7d8c6;
+  font-weight: bold;
+}
+.logo-text .do, .logo .do {
+  color: #a9b7c0;
+  font-weight: bold;  
 }
 
 
@@ -276,22 +321,25 @@ li {
 
 
 
-.columns-title {
+.columns-title h6 {
   font-family: 'Comfortaa', sans-serif;
+  font-weight: bold;
+  font-size: 1.6em;
+  margin: 0;
 }
 
 .columns-title .details-column h6 {
   color: #efd9c1;
 }
 
-.columns-title .do-column h6 {
-  font-weight: 900!important;
-  color: #a9b7c0;
-}
-
 .columns-title .did-column h6 {
 	color:#c7d8c6;
 }
+
+.columns-title .do-column h6 {
+  color: #a9b7c0;
+}
+
 .subject {
   background: #f2f2f2;
   border-radius: 9px;

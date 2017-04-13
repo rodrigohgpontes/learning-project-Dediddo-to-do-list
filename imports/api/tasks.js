@@ -56,6 +56,7 @@ Meteor.methods({
       username: Meteor.user().username,
 	  todo: null,
 	  deadline: null,
+	  tags:[],
     });
   },
   'tasks.remove'(taskId) {
@@ -104,7 +105,27 @@ Meteor.methods({
     }	
  
     Tasks.update(taskId, { $set: { text: setText } });
-  },    
+  }, 
+  'tasks.setTag'(setTag, taskId ) {
+    check(taskId, String);
+    check(setTag, String);
+	
+	
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }	
+ 
+    Tasks.update(taskId, { $push: { tags: setTag } });
+  },   
+  'tasks.removeTag'(taskId, tagText) {
+    check(taskId, String);
+	check(tagText, String);
+	
+	Tasks.update(taskId, { $pull: { tags: tagText } });
+
+  },  
     'tasks.setDeadline'(taskId, setDeadline) {
     check(taskId, String);
     check(setDeadline, Date);
