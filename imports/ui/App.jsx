@@ -61,8 +61,10 @@ class App extends Component {
 		let allTags = [];
 		
 		this.props.tasks.map((task) => {
+			if (task.tags) {
 			for (var k = 0; k<task.tags.length; k++) {
 				if (allTags.indexOf(task.tags[k]) === -1) allTags.push(task.tags[k]);
+			}
 			}
 		});
 
@@ -165,11 +167,11 @@ class App extends Component {
 						<em> Hide Subjects without a deadline</em>
 					</label> 
 				</div> 				
-					{ 	this.props.task.tags ?
+					
 					<div className="tagmenu">
 						<p>All tags:</p>
 						{this.renderTagMenu()}
-					</div>  : '' }
+					</div>  
 		  
 				<div>
 					<div className="row no-gutters columns-title">
