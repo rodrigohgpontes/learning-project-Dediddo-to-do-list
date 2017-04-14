@@ -87,7 +87,7 @@ class App extends Component {
 	  filteredTasks = filteredTasks.filter(task => task.deadline.toUTCString() !== 'Thu, 01 Jan 1970 00:00:00 GMT');
     }
 	
-	if (this.state.tagFilter.length > 0) {
+	if (this.state.tagFilter && this.state.tagFilter.length > 0) {
 		var tempTagFilter = this.state.tagFilter.slice();
 		filteredTasks = filteredTasks.filter(function (task) {
 			for (var i = 0; i<task.tags.length;i++) {
