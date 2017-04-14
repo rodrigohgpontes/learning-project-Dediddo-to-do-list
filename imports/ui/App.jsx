@@ -90,11 +90,13 @@ class App extends Component {
 	if (this.state.tagFilter && this.state.tagFilter.length > 0) {
 		var tempTagFilter = this.state.tagFilter.slice();
 		filteredTasks = filteredTasks.filter(function (task) {
+			if(task.tags) {
 			for (var i = 0; i<task.tags.length;i++) {
 				for (var j = 0;j<tempTagFilter.length;j++){
 					if(task.tags[i] === tempTagFilter[j]) return true;
 				}
 				
+			}
 			}
 		});
     }
