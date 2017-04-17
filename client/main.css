@@ -183,20 +183,21 @@ h4 {
 	 border-radius: 4px;
 	 margin: 0 4px 10px;
 	 padding: 3px 6px;
-	 min-width: 100px;
+	 min-width: 70px;
 	 text-align: center;
 	 cursor: pointer;
+	 color:#aaa;
  }
  
    .tagmenu p:first-of-type {
 	 display: inline-block;
 	 background-color: white;
-	 min-width: 40px;
+	 min-width: 30px;
 	 cursor: default;
  }
  
  .tagactive {
-	color: white;
+	color: white!important;
 	 background-color: #a9b7c0!important;
  }
  
@@ -205,6 +206,7 @@ h4 {
 	 font-size: 0.8em;
 	 padding: 1px 3px;
  	 background-color: rgba(255,255,255,0.4);
+	 color: #333;
 	 border-radius: 4px;
  }
  
@@ -232,8 +234,14 @@ h4 {
  
 .new-task input:focus{
   outline: 0;
-  background:#E6F3F7;
+  background:#FFFA7F;
   border: solid 1px #C8CFD6;
+}
+
+.submit-deadline {
+  background:#FFFA7F!important;
+  border: solid 1px #C8CFD6!important;
+  padding: 0!important;
 }
  
 ul {

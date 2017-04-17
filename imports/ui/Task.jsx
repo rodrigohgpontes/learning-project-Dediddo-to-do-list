@@ -372,7 +372,7 @@ class Task extends Component {
 							type="datetime-local"
 							ref="deadlineInput"
 						  />
-						  <input type="submit" />
+						  <input className="submit-deadline"  type="submit" value="submit deadline" />
 						</form> : 
 						this.state.showDeadlineInput ?
 						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
@@ -383,7 +383,7 @@ class Task extends Component {
 							defaultValue={this.handleEditDeadline()}
 							autoFocus
 						  />
-						  <input type="submit" />
+						  <input className="submit-deadline" type="submit" value="submit deadline" />
 						</form> :
 						<span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()} - {this.props.task.deadline.toLocaleTimeString().slice(0, -3)}</span>
 					}
