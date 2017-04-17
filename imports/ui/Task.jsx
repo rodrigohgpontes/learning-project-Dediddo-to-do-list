@@ -385,7 +385,7 @@ class Task extends Component {
 						  />
 						  <input className="submit-deadline" type="submit" value="submit deadline" />
 						</form> :
-						<span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()} - {this.props.task.deadline.toLocaleTimeString().slice(0, -3)}</span>
+						<p><span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toDateString()} - {this.props.task.deadline.toLocaleTimeString().slice(0, -3)}</span></p>
 					}
 
 					
