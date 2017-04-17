@@ -410,6 +410,9 @@ li {
   margin: 6px 2px 2px 10px;
 }
 
+.do-column .card span {
+  font-size: 0.8em;
+}
 
 .subject-form {
   font-size: 12px;
