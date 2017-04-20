@@ -57,6 +57,8 @@ Meteor.methods({
 	  todo: null,
 	  deadline: null,
 	  tags:[],
+	  priority: "high",
+	  size: "small",
     });
   },
   'tasks.remove'(taskId) {
@@ -149,6 +151,30 @@ Meteor.methods({
     }	
  
     Tasks.update(taskId, { $set: { todo: setTodo } });
+  }, 
+    'tasks.setPriority'(taskId, setPriority) {
+    check(taskId, String);
+    check(setPriority, String);
+	
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }	
+ 
+    Tasks.update(taskId, { $set: { priority: setPriority } });
+  }, 
+      'tasks.setSize'(taskId, setSize) {
+    check(taskId, String);
+    check(setSize, String);
+	
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }	
+ 
+    Tasks.update(taskId, { $set: { size: setSize } });
   }, 
 
 'details.insert'(text, taskID) {

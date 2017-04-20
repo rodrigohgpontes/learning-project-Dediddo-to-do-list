@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
- 
 import { Tasks } from '../api/tasks.js';
- 
+
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
+import Guide from './Guide.jsx';
 
  
 // App component - represents the whole app
@@ -18,6 +18,8 @@ class App extends Component {
  
     this.state = {
       hideCompleted: false,
+	  showTodo: false,
+	  showGuide: false,
 	  featureform: false,
 	  tagFilter: [],
     };
@@ -37,10 +39,23 @@ class App extends Component {
   }	
   
     toggleHideCompleted() {
+
 		this.setState({
 		  hideCompleted: !this.state.hideCompleted,
 		});
   }
+  
+    toggleShowTodo() {
+		this.setState({
+		  showTodo: !this.state.showTodo,
+		});
+  }  
+  
+      toggleShowGuide() {
+		this.setState({
+		  showGuide: !this.state.showGuide,
+		});
+  }  
  
 	toggleTagFilter(tagText) {
 		var newTagFilter = this.state.tagFilter.slice();
@@ -81,6 +96,7 @@ class App extends Component {
 	}
 	
   renderTasks() {
+	  
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
       filteredTasks = filteredTasks.filter(task => task.deadline);
@@ -101,15 +117,37 @@ class App extends Component {
 		});
     }
 	
+    if (this.state.showTodo) {
+		var notTodos =     document.getElementsByClassName('not-todo');
+		for(i=0; i<notTodos.length; i++) {
+		notTodos[i].style.opacity = 0;
+		}
+		var doCards =     document.getElementsByClassName('do-card');
+		for(i=0; i<doCards.length; i++) {
+		doCards[i].style.backgroundColor = 'rgba(255,255,255,0)';
+		}		
+	} else {
+		var notTodos =     document.getElementsByClassName('not-todo');
+		for(i=0; i<notTodos.length; i++) {
+		notTodos[i].style.opacity = 1;		
+		}
+		var doCards =     document.getElementsByClassName('do-card');
+		for(i=0; i<doCards.length; i++) {
+		doCards[i].style.backgroundColor = 'rgba(255,255,255,0)';
+		}			
+    }	
+	
     return filteredTasks.map((task) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
+	  
       return (
         <Task
-          key={task._id}
-          task={task}
-		  currentUser={this.props.currentUser}
-          showPrivateButton={showPrivateButton}
+			key={task._id}
+			task={task}
+			showTodo={this.state.showTodo}
+			currentUser={this.props.currentUser}
+			showPrivateButton={showPrivateButton}
         />
       );
     });
@@ -131,26 +169,35 @@ class App extends Component {
 			{ !this.props.currentUser ? 
 			 <Landing />: '' }		 
 			
-			{ this.props.currentUser ?
+
+			
+			{ !this.state.showGuide && this.props.currentUser ?
 			<div className="app-page">
-				<header>
-				  <p className="logo">
-					<span className="de">De</span><span className="did">did</span><span className="do">do</span>
-				  </p>
-				  <AccountsUIWrapper />
+				<header className="row no-gutters">
+				  <div className="col-4">
+					  <p className="logo">
+						<span className="de">De</span><span className="did">did</span><span className="do">do</span>
+					  </p>
+				  </div>
+				  <div className="col-3">
+					<p className="guide-show" onClick={() => this.toggleShowGuide()}>Guide</p>
+				  </div>
+				  <div className="col-5">
+					<AccountsUIWrapper />
+				  </div>
 				</header>
 			
 
 				<div className="row options">
 				
-					<p className="request-open-form col-6 text-align-left" onClick={this.handleFeatureRequest.bind(this)}>Do you have a feature request?</p>
+					<p className="request-open-form col-4 text-align-left" onClick={this.handleFeatureRequest.bind(this)}>Do you have a feature request?</p>
 
 					{ this.state.featureform ?
-					<div id="request-form" className="accounts-dialog col-md-7 text-align-left">
+					<div id="request-form" className="accounts-dialog offset-3 col-md-6 text-align-left">
 						<a className="login-close-text" onClick={this.handleFeatureRequest.bind(this)}>Close</a>
 						<form action="https://formspree.io/rodrigo@dediddo.com" method="POST">
 							<label htmlFor="request-text">What's your feature request?</label>
-							<input name="request" id="request-text" type="textArea"/>
+							<input name="request" id="request-text" type="textArea" autoFocus />
 							<input name="email" type="hidden" value={this.props.currentUser.emails[0].address}/>
 							<input type="hidden" name="_next" value="/" />
 							<button className="login-button login-button-form-submit" id="request-submit">Send</button>
@@ -159,47 +206,38 @@ class App extends Component {
 						
 					</div>  : '' }				
 				
-					<label className="hide-completed  col-6 text-align-right justify-content-end">
+					<label className="hide-completed  col-4 text-align-right justify-content-end">
 						<input
 						  type="checkbox"
 						  readOnly
 						  checked={this.state.hideCompleted}
 						  onClick={this.toggleHideCompleted.bind(this)}
 						/>
-						<em> Hide Subjects without a deadline</em>
+						 Hide Topics without a deadline
+					</label>
+					<label className="hide-completed  col-4 text-align-right justify-content-end">
+						<input
+						  type="checkbox"
+						  readOnly
+						  checked={this.state.showTodo}
+						  onClick={this.toggleShowTodo.bind(this)}
+						/>
+						 Only show To Do text
 					</label> 
 				</div> 				
 					
 					<div className="tagmenu">
-						<p>All tags:</p>
+						<p>tags:</p>
 						{this.renderTagMenu()}
 					</div>  
 		  
 				<div>
-					<div className="row no-gutters columns-title">
-					
-						<div className="details-column col-4">
-							<h6 className="text-center de">
-								Details
-							</h6>
-						</div>
-						<div className="did-column col-4">
-							<h6 className="text-center did">
-								did
-							</h6>
-						</div>
-						<div className="do-column col-4">
-							<h6 className="text-center do">
-								do
-							</h6>
-						</div>
-					</div>		  
 				  
 					<form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
 					  <input
 						type="text"
 						ref="textInput"
-						placeholder="Type to add new task"
+						placeholder="Type to add new topic"
 						
 					  />
 					</form> 
@@ -213,6 +251,25 @@ class App extends Component {
 				  }				  
 				</ul>            
             </div> : '' }
+			
+			{ this.props.currentUser && this.state.showGuide ? 
+			<div>
+				<header className="row">
+				  <div className="col-5">
+					  <p className="logo">
+						<span className="de">De</span><span className="did">did</span><span className="do">do</span>
+					  </p>
+				  </div>
+
+				  <div className="col-7">
+					<AccountsUIWrapper />
+				  </div>
+				</header>
+				<div className="row ">
+					<p className="guide-hide col-12 text-center" onClick={() => this.toggleShowGuide()}>Hide guide</p>
+				  </div>
+				<Guide />
+			</div>: '' }	
 		</div>
     );
   }

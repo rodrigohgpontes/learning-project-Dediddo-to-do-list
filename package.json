@@ -1,5 +1,5 @@
 {
-  "name": "simple-todos",
+  "name": "dediddo",
   "private": true,
   "scripts": {
     "start": "meteor run"
@@ -12,6 +12,6 @@
     "react": "^15.4.2",
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-native-modal-datetime-picker": "^4.3.0"
+    "react-router": "^4.1.1"
   }
 }
