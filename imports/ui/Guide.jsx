@@ -40,7 +40,7 @@ export default class Guide extends Component {
 					   <h6>What this guide will answer:</h6>
 						<p><strong>What is a Topic and what is inside it?</strong><br></br><span>topic, to do, tags, size, priority, and deadline</span></p>
 						<p><strong>How the Topics are sized and ordered?</strong><br></br><span>height, width, color, and position</span></p>
-						<p><strong>How to better view and filter the to-dos?</strong><br></br><span>filter by tag, filter by (no)deadline, clean view of to-dos</span></p>
+						<p><strong>How to better view and filter the to-dos?</strong><br></br><span>filter by tag, filter empty tasks, clean view of to-dos</span></p>
 					 </div>
 				  </div>
 				</section>
@@ -93,8 +93,8 @@ export default class Guide extends Component {
 				   <h5 className="text-center">How to better view and filter the to-dos?</h5>
 				   <div className="row justify-content-center align-items-center">           
 					 <div className="col-sm-7">
-						<p><strong>Filter Topics with no deadline by clicking to <em>hide Topics without a deadline</em>.</strong><br></br>
-						It will hide every Topic with an empty deadline.<br></br>
+						<p><strong>Filter Topics with no To Do by clicking on <em>clean view</em>.</strong><br></br>
+						It will hide every Topic with an empty To Do text.<br></br>
 						A deadline is empty when the Topic is created or when you edit the deadline and clean the input field.<br></br>
 						You can use this filter for Topics that do not have a immediate To Do, but that you don't want to delete.
 						</p>

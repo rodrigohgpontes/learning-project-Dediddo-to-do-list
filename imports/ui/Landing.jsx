@@ -200,8 +200,8 @@ export default class Landing extends Component {
 								   {this.state.showGuideThree ?
 								   <div className="row justify-content-center align-items-center">           
 									 <div className="col-sm-7">
-										<p><strong>Filter Topics with no deadline by clicking to <em>hide Topics without a deadline</em>.</strong><br></br>
-										It will hide every Topic with an empty deadline.<br></br>
+										<p><strong>Filter Topics with no To Do by clicking on <em>clean view</em>.</strong><br></br>
+										It will hide every Topic with an empty To Do text.<br></br>
 										A deadline is empty when the Topic is created or when you edit the deadline and clean the input field.<br></br>
 										You can use this filter for Topics that do not have a immediate To Do, but that you don't want to delete.
 										</p>

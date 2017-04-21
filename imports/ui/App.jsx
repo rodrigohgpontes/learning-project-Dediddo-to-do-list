@@ -39,13 +39,14 @@ class App extends Component {
   }	
   
     toggleHideCompleted() {
-
+		this.refs["hideEmpty"].classList.toggle('tagactive');
 		this.setState({
 		  hideCompleted: !this.state.hideCompleted,
 		});
   }
   
     toggleShowTodo() {
+		this.refs["showTodo"].classList.toggle('tagactive');
 		this.setState({
 		  showTodo: !this.state.showTodo,
 		});
@@ -99,8 +100,10 @@ class App extends Component {
 	  
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => task.deadline);
-	  filteredTasks = filteredTasks.filter(task => task.deadline.toUTCString() !== 'Thu, 01 Jan 1970 00:00:00 GMT');
+      filteredTasks = filteredTasks.filter(task => task.todo);
+      filteredTasks = filteredTasks.filter(task => task.todo !== "");
+	  
+	 // filteredTasks = filteredTasks.filter(task => task.deadline.toUTCString() !== 'Thu, 01 Jan 1970 00:00:00 GMT');
     }
 	
 	if (this.state.tagFilter && this.state.tagFilter.length > 0) {
@@ -188,10 +191,8 @@ class App extends Component {
 				</header>
 			
 
-				<div className="row options">
+				<div className="row justify-content-end options">
 				
-					<p className="request-open-form col-4 text-align-left" onClick={this.handleFeatureRequest.bind(this)}>Do you have a feature request?</p>
-
 					{ this.state.featureform ?
 					<div id="request-form" className="accounts-dialog offset-3 col-md-6 text-align-left">
 						<a className="login-close-text" onClick={this.handleFeatureRequest.bind(this)}>Close</a>
@@ -205,25 +206,11 @@ class App extends Component {
 						</form>
 						
 					</div>  : '' }				
-				
-					<label className="hide-completed  col-4 text-align-right justify-content-end">
-						<input
-						  type="checkbox"
-						  readOnly
-						  checked={this.state.hideCompleted}
-						  onClick={this.toggleHideCompleted.bind(this)}
-						/>
-						 Hide Topics without a deadline
-					</label>
-					<label className="hide-completed  col-4 text-align-right justify-content-end">
-						<input
-						  type="checkbox"
-						  readOnly
-						  checked={this.state.showTodo}
-						  onClick={this.toggleShowTodo.bind(this)}
-						/>
-						 Only show To Do text
-					</label> 
+
+					<p className="hide-completed  col-4 col-sm-3 text-center " ref="hideEmpty" onClick={this.toggleHideCompleted.bind(this)}>hide empty</p>
+					<p className="show-todo  col-4  col-sm-3 text-center " ref="showTodo"  onClick={this.toggleShowTodo.bind(this)}>clean view</p>
+
+							 
 				</div> 				
 					
 					<div className="tagmenu">

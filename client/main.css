@@ -26,7 +26,7 @@ padding: 0;
 header {
   background: #eee;
   padding: 4px 10px 6px 10px;
-  margin: 0 0 10px 0;
+  margin: 0;
   position: relative;
 }
 
@@ -41,20 +41,26 @@ header p {
  }
 
 .hide-completed {
-	font-size: 0.8em;
-	color: #555;
+	font-size: 1em;
+	background: #eee;
+	color: white;
+	margin-right: 5px;
+	border-radius: 0 0 6px 6px;
+}
+.show-todo {
+	font-size: 1em;
+	background: #eee;
+	color: white;
+	border-radius: 0 0 6px 6px;
+}
+.options {
+	margin: 0 8px 8px 0;
 	
 }
 
-.hide-completed input {
-	position: relative;
-	top: 2px;
-	margin-right: 2px;
-}
 
-.options {
-	margin-bottom: 8px;
-}
+
+
 #request-form {
  margin-left: 10px;
 
@@ -157,8 +163,8 @@ footer a {
 	height: auto;
 } 
  
- .landing-page {
-	 
+ .landing-page p {
+	 font-size: 1.2em;
  }
  
 h4 {
@@ -282,13 +288,7 @@ ul {
  
 
 
- 
-@media (max-width: 600px) {
 
-  .new-task input {
-    padding-bottom: 5px;
-  }
-}
 
 #login-buttons {
 	float: right;
@@ -706,6 +706,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efd9c1', end
 	.guide-intro, .guide-section {
 		padding: 20px 0;
 	}
+	
+  .new-task input {
+    padding-bottom: 5px;
+  }
+  
+  .size-priority p {
+	  font-size: 1em;
+	  
+  }
+	.topic {
+		font-size: 1.2em;
+	}
+	
+	.todo {
+		font-size: 1.6em!important;
+	}
+	
+	.card p {
+		font-size: 1.2em;
+	}
+
   
 }
 
