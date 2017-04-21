@@ -93,7 +93,7 @@ export default class Guide extends Component {
 				   <h5 className="text-center">How to better view and filter the to-dos?</h5>
 				   <div className="row justify-content-center align-items-center">           
 					 <div className="col-sm-7">
-						<p><strong>Filter Topics with no To Do by clicking on <em>clean view</em>.</strong><br></br>
+						<p><strong>Filter Topics with no To Do by clicking on <em>hide empty</em>.</strong><br></br>
 						It will hide every Topic with an empty To Do text.<br></br>
 						A deadline is empty when the Topic is created or when you edit the deadline and clean the input field.<br></br>
 						You can use this filter for Topics that do not have a immediate To Do, but that you don't want to delete.
@@ -103,7 +103,7 @@ export default class Guide extends Component {
 						You create a Tag directly at the Topics. Any tag created at any Topic will automatically be listed on the top tag menu.<br></br>
 						You can select multiple tags and it will show all Topics that have any one of the selected tags. Remember that a Topic with no tags will not be listed whenever any one tag is selected.
 						</p>						
-						<p><strong>For a very clean view of you have on your To Do list click to <em>only show To Do text</em> .</strong><br></br>
+						<p><strong>For a minimalistic view of your To Do list, click on <em>clean view</em>.</strong><br></br>
 						It will hide every information on every topic, except the To Do.<br></br>
 						The Topic color, width, and height will stay the same, as well as any filter by tag or deadline that is set.<br></br>
 						You won't be able to edit any info (except the To Do) when this view is set. Click again the checkbox to edit other fields.

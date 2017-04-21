@@ -671,9 +671,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efd9c1', end
 .guide-section-lp h5 {
 	margin-bottom: 3px!important;
 }
-.guide-section-lp p:first-of-type {
+.guide-show-lp-subtitle {
 	text-align: center;
-	color: #333;
+	color: #777;
 }
 
 .guide-hide {
