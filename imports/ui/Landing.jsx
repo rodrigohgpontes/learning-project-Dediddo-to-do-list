@@ -95,7 +95,7 @@ export default class Landing extends Component {
 				   <div className="row justify-content-center">
 					 <div className="col-12">
 						<p>
-							Dediddo is in the Alpha phase of its development. As such, it might still lack some features that important for you. Please let me know if that is the case so I can consider building it for you.
+							Dediddo is in the Alpha phase of its development. As such, it might still lack some features that are important for you. Please let me know if that is the case so I can consider building it for you.
 						</p>
 						<p>
 							Pricing: Free, for now.
