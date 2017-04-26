@@ -27,8 +27,12 @@ class Task extends Component {
 
   
   toggleChecked() {
-    // Set the checked property to the opposite of its current value
-    Meteor.call('tasks.setChecked', this.props.task._id, !this.props.task.checked);
+	 
+	if (this.props.task.checked == undefined) {
+		Meteor.call('tasks.addCheckedField', this.props.task._id);
+	} else {
+		Meteor.call('tasks.toggleChecked', this.props.task._id, !this.props.task.checked);
+	}
 
   }
  
@@ -187,6 +191,7 @@ class Task extends Component {
     let filteredDetails = this.props.details;
     filteredDetails = filteredDetails.filter(detail => detail.owner === this.props.task.owner);
 	filteredDetails = filteredDetails.filter(detail => detail.taskID === this.props.task._id);
+	if (this.props.hideCompleted) filteredDetails = filteredDetails.filter(detail => !detail.checked);
     return filteredDetails.map((detail) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = detail.owner === currentUserId;
@@ -314,18 +319,28 @@ class Task extends Component {
   	componentDidMount() {
 		
     if (this.props.showTodo) {
+		var deadlines =     document.getElementsByClassName('not-todo-hidden');
+		for(i=0; i<deadlines.length; i++) {
+		deadlines[i].style.visibility = "hidden";
+		}		
 		var notTodos =     document.getElementsByClassName('not-todo');
 		for(i=0; i<notTodos.length; i++) {
-		notTodos[i].style.opacity = 0;
+
+		notTodos[i].style.display = "none";
 		}
 		var doCards =     document.getElementsByClassName('do-card');
 		for(i=0; i<doCards.length; i++) {
 		doCards[i].style.backgroundColor = 'rgba(255,255,255,0)';
 		}		
 	} else {
+		var deadlines =     document.getElementsByClassName('not-todo-hidden');
+		for(i=0; i<deadlines.length; i++) {
+		deadlines[i].style.visibility = "visible";
+		}		
 		var notTodos =     document.getElementsByClassName('not-todo');
 		for(i=0; i<notTodos.length; i++) {
-		notTodos[i].style.opacity = 1;		
+
+		notTodos[i].style.display = "initial";		
 		}
 		var doCards =     document.getElementsByClassName('do-card');
 		for(i=0; i<doCards.length; i++) {
@@ -347,175 +362,113 @@ class Task extends Component {
     });
 	
     return (
-		<li className={"item priority-"+this.props.task.priority+" size-"+this.props.task.size} ref={c => this.container = c}>
-            <div className="row no-gutters subject">  
-                
-				<div className="do-column col-12">
-					<div className="card do-card" >
+		<li className={"container-fluid item priority-"+this.props.task.priority+" size-"+this.props.task.size} ref={c => this.container = c}>
 						<button type="button" aria-label="Close" className="delete close align-self-end not-todo" onClick={this.deleteThisTask.bind(this)}>
 						   <span aria-hidden="true">&times;</span>
 						</button>
+			<div onClick={() => this.toggleChecked(this)} className={this.props.task.checked ? "todo-checked" : "todo-checked display-none"}><p>&#10003;</p></div>
+			<div className="row subject">
+						<div className="col-10 card-deadline not-todo-hidden">
+						{ !this.props.task.deadline || this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT' ?	
+							<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
+							  <label>deadline: </label>
+							  <input
+								type="datetime-local"
+								ref="deadlineInput"
+								onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
+								
+							  />
+							  <input className="submit-deadline" type="submit" />
+							</form> : 
+							this.state.showDeadlineInput ?
+							<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
+							  <label>deadline: </label>
+							  <input
+								type="datetime-local"
+								ref="deadlineInput"
+								defaultValue={this.handleEditDeadline()}
+								onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
+								autoFocus
+							  />
+							  <input className="submit-deadline" type="submit" />
+							</form> :
+							<p className="date-text" ><span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toLocaleString([], {year: '2-digit', month: 'numeric', day: '2-digit', hour: '2-digit', minute:'2-digit'})}</span></p>
+						}					
+						</div>
+
+						<div className="col-12 todo">
+							{ 	this.state.showTextInput || this.props.task.text === "" ?
+								<form className="new-task" onSubmit={this.handleSubmitText.bind(this)}>
+								  <input
+									type="text"
+									ref="textInput"
+									placeholder="topic"
+									defaultValue={this.handleEditText()}
+									autoFocus
+								  />
+
+									
+								</form> :
+								<div>
+									<span className={this.props.task.checked ? "check-checked check" : "check"} onClick={() => this.toggleChecked(this)}>&#10003; </span>
+									<p onClick={() => this.setState({showTextInput: true})}>{this.props.task.text}</p>
+								</div>
+							}					
+						</div>
 						
-						<div className="task-topic not-todo">
+						<div className="col-12 card-size not-todo">
+									
+									<p><span>size: </span></p>
+									<p className={this.props.task.size === "small" ? "tagactive" : ''} ref={"size-small"} onClick={() => this.handleSubmitSize(this.props.task._id, "small")}>S</p>
+									<p className={this.props.task.size === "medium" ? "tagactive" : ''} ref={"size-medium"} onClick={() => this.handleSubmitSize(this.props.task._id, "medium")}>M</p>
+									<p className={this.props.task.size === "large" ? "tagactive" : ''} ref={"size-large"} onClick={() => this.handleSubmitSize(this.props.task._id, "large")}>L</p>
 
-					{ 	this.state.showTextInput || this.props.task.text === "" ?
-						<form className="new-task" onSubmit={this.handleSubmitText.bind(this)}>
-						  <input
-							type="text"
-							ref="textInput"
-							placeholder="topic"
-							defaultValue={this.handleEditText()}
-							autoFocus
-						  />
-
-							
-						</form> :
-						<p className="topic" onClick={() => this.setState({showTextInput: true})}>{this.props.task.text}</p>
-					}
-
-
-					</div>
-					{ !this.props.task.todo ?	
-						<form className="new-task" onSubmit={this.handleSubmitTodo.bind(this)}>
-						  <input
-							type="text"
-							ref="todoInput"
-							placeholder="to do"
-							
-						  />
-						</form> :
-						this.state.showTodoInput ?
-						<form className="new-task" onSubmit={this.handleSubmitTodo.bind(this)}>
-						  <input
-							type="text"
-							ref="todoInput"
-							placeholder="to do"
-							defaultValue={this.handleEditTodo()}
-							autoFocus
-						  />
-						</form> :
-						<p className="todo" onClick={() => this.setState({showTodoInput: true})}>{this.props.task.todo}</p>
-					}						
-					 <div className="task-settings not-todo"> 
-						<div className="size-priority">
-							<div>
-								<p>priority: </p>
-								<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>low</p>
-								<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>med</p>
-								<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>high</p>
-							</div>
-							<div>
-								<p>size: </p>
-								<p className={this.props.task.size === "small" ? "tagactive" : ''} ref={"size-small"} onClick={() => this.handleSubmitSize(this.props.task._id, "small")}>small</p>
-								<p className={this.props.task.size === "medium" ? "tagactive" : ''} ref={"size-medium"} onClick={() => this.handleSubmitSize(this.props.task._id, "medium")}>med</p>
-								<p className={this.props.task.size === "large" ? "tagactive" : ''} ref={"size-large"} onClick={() => this.handleSubmitSize(this.props.task._id, "large")}>large</p>
-							</div>						
-						</div>							  
-					  
-					{ !this.props.task.deadline || this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT' ?	
-						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-						  <label>deadline: </label>
-						  <input
-							type="datetime-local"
-							ref="deadlineInput"
-							onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
-							
-						  />
-						  <input className="submit-deadline" type="submit" />
-						</form> : 
-						this.state.showDeadlineInput ?
-						<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-						  <label>deadline: </label>
-						  <input
-							type="datetime-local"
-							ref="deadlineInput"
-							defaultValue={this.handleEditDeadline()}
-							onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
-							autoFocus
-						  />
-						  <input className="submit-deadline" type="submit" />
-						</form> :
-						<p className="date-text" ><span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toLocaleString([], {year: '2-digit', month: 'numeric', day: '2-digit', hour: '2-digit', minute:'2-digit'})}</span></p>
-					}
-					</div>
-					{ 	this.props.task.tags ?
-					<div className="tags not-todo">
-						{this.renderTags()}
-					
-						<form className="new-task" onSubmit={this.handleSubmitTag.bind(this)}>
-						  <input 
-							type="text"
-							ref="newTagInput"
-							placeholder="+ tag"
-						  />
-						  <input
-							type="hidden"
-							ref="taskIDNewTagInput"
-							value={this.props.task._id}
-							
-						  />						  
-						</form>	
-					</div> : ''
-					}			
-					
-					
-
-					
-					</div>                     
-                </div>
-				
-				<div className="details-column col-12 not-todo">
-					<div className="card">
-					
-		
-					
-					{this.renderDetails()}
-					  
-						<form className="new-task" onSubmit={this.handleSubmitDetail.bind(this)}>
-						  <input 
-							
-							type="text"
-							ref="newDetailInput"
-							placeholder="+ detail"
-						  />
-						  <input
-							type="hidden"
-							ref="taskIDNewDetailInput"
-							value={this.props.task._id}
-							
-						  />						  
-						</form>
-					  							  
-					</div>                  
-                </div>
-                <div className="did-column col-12 not-todo">
-					<div className="card">
-
-						<form className="new-task" onSubmit={this.handleSubmitDid.bind(this)}>
-						  <input 
-							
-							type="text"
-							ref="newDidInput"
-							placeholder="+ record"
-						  />
-						  <input
-							type="hidden"
-							ref="taskIDNewDidInput"
-							value={this.props.task._id}
-							
-						  />						  
-						</form>		
-					  
-						{this.renderDids()}
+									<p><span>priority: </span></p>
+									<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>L</p>
+									<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>M</p>
+									<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>H</p>				
+						</div>						
 						
+						<div className="col-12 card-tags not-todo">
+							{ 	this.props.task.tags ?
+							<div className="tags not-todo">
+								{this.renderTags()}
+							
+								<form className="new-task" onSubmit={this.handleSubmitTag.bind(this)}>
+								  <input 
+									type="text"
+									ref="newTagInput"
+									placeholder="+ tag"
+								  />
+								  <input
+									type="hidden"
+									ref="taskIDNewTagInput"
+									value={this.props.task._id}
+									
+								  />						  
+								</form>	
+							</div> : ''
+							}							
+						</div>
+						<div className="col-12 card-details">
+							{this.renderDetails()}
 					  
-					</div>                  
-                </div>
-                
-            </div>	
-      
-
- 
+							<form className="new-task not-todo" onSubmit={this.handleSubmitDetail.bind(this)}>
+							  <input 
+								
+								type="text"
+								ref="newDetailInput"
+								placeholder="+ subtask"
+							  />
+							  <input
+								type="hidden"
+								ref="taskIDNewDetailInput"
+								value={this.props.task._id}
+								
+							  />						  
+							</form>						
+						</div>
+			</div>
       </li>
     );
   }
@@ -525,7 +478,7 @@ Task.propTypes = {
   // This component gets the task to display through a React prop.
   // We can use propTypes to indicate it is required
   task: PropTypes.object.isRequired,
-  showPrivateButton: React.PropTypes.bool.isRequired,
+
   
 };
 
@@ -543,16 +496,27 @@ class Detail extends Component {
   deleteThisDetail() {
     Meteor.call('details.remove', this.props.detail._id);
   }		
+  
+  toggleChecked() {
+	 
+	if (this.props.detail.checked == undefined) {
+		Meteor.call('details.addCheckedField', this.props.detail._id);
+	} else {
+		Meteor.call('details.toggleChecked', this.props.detail._id, !this.props.detail.checked);
+	}
+
+  }
 	
 	render () {
 		
 		return (
-		<div>
-			<p onClick={() => this.props.handleDetailClick(this.props.detail._id)}> {this.props.detail.text} 
-				<button type="button" aria-label="Close" className="delete-detail close align-self-end" onClick={this.deleteThisDetail.bind(this)}>
-					<span aria-hidden="true">&times;</span>
-				</button>
+		<div className="row">
+			<p className={this.props.detail.checked ? "check-checked col-1 check" : "col-1 check"} onClick={() => this.toggleChecked(this)}>&#10003;</p>
+			<p className={this.props.detail.checked ? "detail-checked col-10" : "col-10"} onClick={() => this.props.handleDetailClick(this.props.detail._id)}> <span>{this.props.detail.text} </span>
 			</p>
+			<button type="button" aria-label="Close" className="delete-detail close col-1" onClick={this.deleteThisDetail.bind(this)}>
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 		)
 		

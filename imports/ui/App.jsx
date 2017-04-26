@@ -100,8 +100,7 @@ class App extends Component {
 	  
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => task.todo);
-      filteredTasks = filteredTasks.filter(task => task.todo !== "");
+      filteredTasks = filteredTasks.filter(task => !task.checked);
 	  
 	 // filteredTasks = filteredTasks.filter(task => task.deadline.toUTCString() !== 'Thu, 01 Jan 1970 00:00:00 GMT');
     }
@@ -121,18 +120,26 @@ class App extends Component {
     }
 	
     if (this.state.showTodo) {
+		var deadlines =     document.getElementsByClassName('not-todo-hidden');
+		for(i=0; i<deadlines.length; i++) {
+		deadlines[i].style.visibility = "hidden";
+		}
 		var notTodos =     document.getElementsByClassName('not-todo');
 		for(i=0; i<notTodos.length; i++) {
-		notTodos[i].style.opacity = 0;
+		notTodos[i].style.display = "none";
 		}
 		var doCards =     document.getElementsByClassName('do-card');
 		for(i=0; i<doCards.length; i++) {
 		doCards[i].style.backgroundColor = 'rgba(255,255,255,0)';
 		}		
 	} else {
+		var deadlines =     document.getElementsByClassName('not-todo-hidden');
+		for(i=0; i<deadlines.length; i++) {
+		deadlines[i].style.visibility = "visible";
+		}		
 		var notTodos =     document.getElementsByClassName('not-todo');
 		for(i=0; i<notTodos.length; i++) {
-		notTodos[i].style.opacity = 1;		
+		notTodos[i].style.display = "initial";		
 		}
 		var doCards =     document.getElementsByClassName('do-card');
 		for(i=0; i<doCards.length; i++) {
@@ -142,7 +149,7 @@ class App extends Component {
 	
     return filteredTasks.map((task) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
+      const hideCompleted = this.state.hideCompleted;
 	  
       return (
         <Task
@@ -150,12 +157,11 @@ class App extends Component {
 			task={task}
 			showTodo={this.state.showTodo}
 			currentUser={this.props.currentUser}
-			showPrivateButton={showPrivateButton}
+			hideCompleted={hideCompleted}
         />
       );
     });
   }
-  
   
 
  
@@ -179,19 +185,16 @@ class App extends Component {
 				<header className="row no-gutters">
 				  <div className="col-4">
 					  <p className="logo">
-						<span className="de">De</span><span className="did">did</span><span className="do">do</span>
+						Dediddo
 					  </p>
 				  </div>
-				  <div className="col-3">
-					<p className="guide-show" onClick={() => this.toggleShowGuide()}>Guide</p>
-				  </div>
-				  <div className="col-5">
-					<AccountsUIWrapper />
+				  <div className="offset-3 col-5 signin">
+					<AccountsUIWrapper/>
 				  </div>
 				</header>
 			
 
-				<div className="row justify-content-end options">
+				<div className="row options">
 				
 					{ this.state.featureform ?
 					<div id="request-form" className="accounts-dialog offset-3 col-md-6 text-align-left">
@@ -207,13 +210,13 @@ class App extends Component {
 						
 					</div>  : '' }				
 
-					<p className="hide-completed  col-4 col-sm-3 text-center " ref="hideEmpty" onClick={this.toggleHideCompleted.bind(this)}>hide empty</p>
-					<p className="show-todo  col-4  col-sm-3 text-center " ref="showTodo"  onClick={this.toggleShowTodo.bind(this)}>clean view</p>
 
 							 
 				</div> 				
 					
 					<div className="tagmenu">
+						<p className="hide-completed" ref="hideEmpty" onClick={this.toggleHideCompleted.bind(this)}>hide completed</p>
+						<p className="show-todo" ref="showTodo"  onClick={this.toggleShowTodo.bind(this)}>clean view</p>
 						<p>tags:</p>
 						{this.renderTagMenu()}
 					</div>  
@@ -224,7 +227,7 @@ class App extends Component {
 					  <input
 						type="text"
 						ref="textInput"
-						placeholder="Type to add new topic"
+						placeholder="Type to add new task"
 						
 					  />
 					</form> 

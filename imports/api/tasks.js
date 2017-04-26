@@ -59,6 +59,7 @@ Meteor.methods({
 	  tags:[],
 	  priority: "high",
 	  size: "small",
+	  checked: false,
     });
   },
   'tasks.remove'(taskId) {
@@ -176,6 +177,27 @@ Meteor.methods({
  
     Tasks.update(taskId, { $set: { size: setSize } });
   }, 
+        'tasks.addCheckedField'(taskId) {
+    check(taskId, String);
+	
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }
+	 Tasks.update(taskId, { $set: { checked: true } });
+  },
+    'tasks.toggleChecked'(taskId, setChecked) {
+    check(taskId, String);
+    check(setChecked, Boolean);	
+	
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }
+	Tasks.update(taskId, { $set: { checked: setChecked } });
+  },
 
 'details.insert'(text, taskID) {
     check(text, String);
@@ -188,6 +210,7 @@ Meteor.methods({
     Details.insert({
       text,
 	  taskID: taskID,
+	  checked: false,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username,
@@ -214,6 +237,29 @@ Meteor.methods({
     }	
  
     Details.update(detailId, { $set: { text: setText } });
+  },
+      'details.addCheckedField'(detailId) {
+    check(detailId, String);
+	
+    const detail = Details.findOne(detailId);
+    if (detail.private && detail.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }	
+ 
+    Details.update(detailId, { $set: { checked: true } });
+  },
+    'details.toggleChecked'(detailId, setChecked) {
+    check(detailId, String);
+    check(setChecked, Boolean);	
+	
+    const detail = Details.findOne(detailId);
+    if (detail.private && detail.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }	
+ 
+    Details.update(detailId, { $set: { checked: setChecked } });
   },
   
 'dids.insert'(text, taskID) {
