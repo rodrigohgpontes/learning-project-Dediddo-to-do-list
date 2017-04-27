@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
-
+import Mansory from 'react-masonry-component';
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Landing from './Landing.jsx';
@@ -234,12 +234,12 @@ class App extends Component {
 				</div> 
 		
 			
-				<ul>
+				<Mansory elementType={'ul'} >
 				  
 				  { this.props.currentUser ?
 					this.renderTasks() : ''
 				  }				  
-				</ul>            
+				</Mansory>            
             </div> : '' }
 			
 			{ this.props.currentUser && this.state.showGuide ? 

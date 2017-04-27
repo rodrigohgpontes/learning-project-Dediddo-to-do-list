@@ -224,7 +224,7 @@ li {
 	display: inline-block;
 	overflow-y: auto;
 	border-radius: 5px;
-	margin: 2px 1px;
+	margin: 1px;
 	vertical-align:top;
 }
 
@@ -438,11 +438,11 @@ li {
 }
 
 .priority-low {
-	width: 32%;
+	width: 31%;
 	background: #282F3B;
 }
 .priority-medium {
-	width: 65%;
+	width: 62%;
 	background: #0F1727;
 }
 .priority-high {
