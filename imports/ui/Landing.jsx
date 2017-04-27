@@ -86,7 +86,7 @@ export default class Landing extends Component {
 					<div className="col-sm-6 col-md-4">
 					  <h4>Accessible from all devices</h4>					
 					  <img className="img-fluid rounded mx-auto d-block" src="/feature-devices.png" />
-					  <p>It runs on the web, with a responsible design. Check your to-dos everywhere, with no app downloads.</p>
+					  <p>It runs on the web, with a responsive design. Check your to-dos everywhere, with no app downloads.</p>
 					</div>
 				  </div>        
 				</section>
