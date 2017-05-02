@@ -21,6 +21,8 @@ padding: 0;
 background: #192231;
 }
 
+
+
 .app-page {
 	max-width: 1080px;
 	margin: auto;
@@ -222,10 +224,11 @@ li {
 
 .item {
 	display: inline-block;
-	overflow-y: auto;
 	border-radius: 5px;
-	margin: 1px;
+	border: solid 2px rgba(0,0,0,0.6);
+	padding-bottom: 7px;
 	vertical-align:top;
+	margin: 2px;
 }
 
 .columns-title h6 {
@@ -260,7 +263,6 @@ li {
 	font-size: 1.6em;
 	color: #F698A5;
 	padding: 0 0 0 3%;
-	overflow-x: auto;
 }
 
 .todo p {
@@ -270,7 +272,7 @@ li {
 .todo-checked {
 	text-align: center;
 	cursor: pointer;
-	font-size: 10vw;
+	font-size: 4em;
 	color: rgb(246,152,165);
 	position: absolute;
 	top: 0;
@@ -278,7 +280,8 @@ li {
 	width: 100%;
 	height: 100%;
 	background: rgba(25,34,49,0.92);
-	border: solid 1px rgb(246,152,165);
+	border: solid 2px rgb(246,152,165);
+	border-radius: 3px;
 	z-index: 999;	
 }
 
@@ -320,28 +323,6 @@ li {
 }
 
 
-@media (min-width: 1000px) {
-  
-  .card-size p:nth-of-type(2):after {
-	  content: "mall";
-  }
-  .card-size p:nth-of-type(3):after {
-	  content: "edium";
-  }
-  .card-size p:nth-of-type(4):after {
-	  content: "arge";
-  }
-  .card-size p:nth-of-type(6):after {
-	  content: "ow";
-  }
-  .card-size p:nth-of-type(7):after {
-	  content: "edium";
-  }
-  .card-size p:nth-of-type(8):after {
-	  content: "igh";
-  }
-  
-}
 
 .card-tags {
 	margin: 6px 0 12px;
@@ -437,36 +418,24 @@ li {
 
 }
 
+.board-area {
+	width: 110%;
+}
+
 .priority-low {
-	width: 31%;
+	width: 30%;
 	background: #282F3B;
 }
 .priority-medium {
-	width: 62%;
+	width: 60%;
 	background: #0F1727;
 }
 .priority-high {
-	width: 97.3%;
+	width: 90%;
 	background: #000010;
 }
 
-.size-small {
-	height: 27.81vw;
-	max-height: 217.8px;
 
-}
-.size-medium {
-	height: 55.62vw;
-	max-height: 435.6px;
-
-}
-
-
-
-.size-large {
-	height: 83.43vw;
-	max-height: 653.4px;
-}
 
 
 .task-settings div, .task-settings p, .task-settings form, .task-settings input{

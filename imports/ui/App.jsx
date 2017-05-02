@@ -234,8 +234,7 @@ class App extends Component {
 				</div> 
 		
 			
-				<Mansory elementType={'ul'} >
-				  
+				<Mansory elementType={'ul'} className={'board-area'}>
 				  { this.props.currentUser ?
 					this.renderTasks() : ''
 				  }				  
@@ -273,7 +272,7 @@ App.propTypes = {
 export default createContainer(() => {
   Meteor.subscribe('tasks');
   return {
-    tasks: Tasks.find({}, { sort: { deadline: 1 } }).fetch(),
+    tasks: Tasks.find({}, { sort: { createdAt: 1 } }).fetch(),
    // incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),	
   };

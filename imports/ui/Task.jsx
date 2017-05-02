@@ -368,33 +368,7 @@ class Task extends Component {
 						</button>
 			<div onClick={() => this.toggleChecked(this)} className={this.props.task.checked ? "todo-checked" : "todo-checked display-none"}><p>&#10003;</p></div>
 			<div className="row subject">
-						<div className="col-10 card-deadline not-todo-hidden">
-						{ !this.props.task.deadline || this.props.task.deadline.toUTCString() === 'Thu, 01 Jan 1970 00:00:00 GMT' ?	
-							<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-							  <label>deadline: </label>
-							  <input
-								type="datetime-local"
-								ref="deadlineInput"
-								onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
-								
-							  />
-							  <input className="submit-deadline" type="submit" />
-							</form> : 
-							this.state.showDeadlineInput ?
-							<form className="new-task date-form" onSubmit={this.handleSubmitDeadline.bind(this)}>
-							  <label>deadline: </label>
-							  <input
-								type="datetime-local"
-								ref="deadlineInput"
-								defaultValue={this.handleEditDeadline()}
-								onChange={(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0)) ? this.handleSubmitDeadline.bind(this) : null}
-								autoFocus
-							  />
-							  <input className="submit-deadline" type="submit" />
-							</form> :
-							<p className="date-text" ><span onClick={() => this.setState({showDeadlineInput: true})}>{this.props.task.deadline.toLocaleString([], {year: '2-digit', month: 'numeric', day: '2-digit', hour: '2-digit', minute:'2-digit'})}</span></p>
-						}					
-						</div>
+
 
 						<div className="col-12 todo">
 							{ 	this.state.showTextInput || this.props.task.text === "" ?
@@ -410,23 +384,18 @@ class Task extends Component {
 									
 								</form> :
 								<div>
-									<span className={this.props.task.checked ? "check-checked check" : "check"} onClick={() => this.toggleChecked(this)}>&#10003; </span>
-									<p onClick={() => this.setState({showTextInput: true})}>{this.props.task.text}</p>
+									
+									<p><span className={this.props.task.checked ? "check-checked check" : "check"} onClick={() => this.toggleChecked(this)}>&#10003; </span> <span onClick={() => this.setState({showTextInput: true})}>{this.props.task.text}</span></p>
 								</div>
 							}					
 						</div>
 						
 						<div className="col-12 card-size not-todo">
 									
-									<p><span>size: </span></p>
-									<p className={this.props.task.size === "small" ? "tagactive" : ''} ref={"size-small"} onClick={() => this.handleSubmitSize(this.props.task._id, "small")}>S</p>
-									<p className={this.props.task.size === "medium" ? "tagactive" : ''} ref={"size-medium"} onClick={() => this.handleSubmitSize(this.props.task._id, "medium")}>M</p>
-									<p className={this.props.task.size === "large" ? "tagactive" : ''} ref={"size-large"} onClick={() => this.handleSubmitSize(this.props.task._id, "large")}>L</p>
-
-									<p><span>priority: </span></p>
-									<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>L</p>
-									<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>M</p>
-									<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>H</p>				
+						<p><span>priority: </span></p>
+									<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>Low</p>
+									<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>Medium</p>
+									<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>High</p>				
 						</div>						
 						
 						<div className="col-12 card-tags not-todo">
