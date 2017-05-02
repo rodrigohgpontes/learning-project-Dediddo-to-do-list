@@ -274,7 +274,7 @@ li {
 	font-weight: bold;
 	font-size: 1.6em;
 	color: #F698A5;
-	padding: 0 0 0 3%;
+	padding: 0 0 0 12px;
 }
 
 .todo p {
@@ -376,6 +376,10 @@ li {
 
 .card-details {
 	padding-right: 0;
+}
+
+.card-details .row {
+	margin-left: -5px;
 }
 
 .card-details p {
