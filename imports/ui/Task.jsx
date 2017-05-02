@@ -36,6 +36,10 @@ class Task extends Component {
 
   }
  
+   upThisTask() {
+    Meteor.call('tasks.up', this.props.task._id);
+  }	
+ 
   deleteThisTask() {
     Meteor.call('tasks.remove', this.props.task._id);
   }	
@@ -363,14 +367,15 @@ class Task extends Component {
 	
     return (
 		<li className={"container-fluid item priority-"+this.props.task.priority+" size-"+this.props.task.size} ref={c => this.container = c}>
-						<button type="button" aria-label="Close" className="delete close align-self-end not-todo" onClick={this.deleteThisTask.bind(this)}>
-						   <span aria-hidden="true">&times;</span>
-						</button>
+
+			<button type="button" aria-label="Close" className="delete close align-self-end not-todo">
+				<span className="button-up" aria-hidden="true" onClick={this.upThisTask.bind(this)}> &uArr; </span><span className="button-close" aria-hidden="true" onClick={this.deleteThisTask.bind(this)}> &times; </span>
+			</button>
 			<div onClick={() => this.toggleChecked(this)} className={this.props.task.checked ? "todo-checked" : "todo-checked display-none"}><p>&#10003;</p></div>
 			<div className="row subject">
 
 
-						<div className="col-12 todo">
+						<div className="col-11 todo">
 							{ 	this.state.showTextInput || this.props.task.text === "" ?
 								<form className="new-task" onSubmit={this.handleSubmitText.bind(this)}>
 								  <input

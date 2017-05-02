@@ -48,7 +48,11 @@ Meteor.methods({
     if (! Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
- 
+	
+	let lastTodo =  Tasks.find({},{sort:{order:-1}}).fetch()[0].order;
+	if (lastTodo == undefined) lastTodo = 0;
+	lastTodo++;
+	
     Tasks.insert({
       text,
       createdAt: new Date(),
@@ -57,11 +61,24 @@ Meteor.methods({
 	  todo: null,
 	  deadline: null,
 	  tags:[],
-	  priority: "high",
+	  priority: "low",
 	  size: "small",
 	  checked: false,
+	  order: lastTodo,
     });
   },
+  'tasks.up'(taskId) {
+    check(taskId, String);
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can delete it
+      throw new Meteor.Error('not-authorized');
+    }
+	let newOrder =  Tasks.find({},{sort:{order:-1}}).fetch()[0].order;
+	if (newOrder == undefined) newOrder = 0;
+	newOrder++;	
+    Tasks.update(taskId, { $set: { order: newOrder } });
+  },  
   'tasks.remove'(taskId) {
     check(taskId, String);
     const task = Tasks.findOne(taskId);

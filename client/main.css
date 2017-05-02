@@ -202,11 +202,21 @@ ul {
   padding: 0;
 }
 
+ .button-up:hover {
+	 color: green;
+
+ }
+ 
+ .button-close:hover {
+	 color: red;
+
+ }
  
 .delete {
 	font-size: 1.2em;	
 	width: 0.7em;
 	margin-bottom: -1em;
+
 }
 
 .delete-detail {
