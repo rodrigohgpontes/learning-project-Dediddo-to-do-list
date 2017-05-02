@@ -236,6 +236,8 @@ li {
 	display: inline-block;
 	border-radius: 5px;
 	border: solid 2px rgba(0,0,0,0.6);
+	padding-right: 0;
+	padding-left: 5px;
 	padding-bottom: 7px;
 	vertical-align:top;
 	margin: 2px;
@@ -300,7 +302,7 @@ li {
 }
 
 .card-size {
-	padding: 0;
+
 	text-align: left;
 }
 
@@ -372,6 +374,10 @@ li {
 	 background-color: #F1ABC3!important;
  }
 
+.card-details {
+	padding-right: 0;
+}
+
 .card-details p {
 	padding: 0;
 }
@@ -423,8 +429,7 @@ li {
 }
 
 .subject {
-
-  padding: 2px;
+  padding: 2px 0 2px 2px;
 
 }
 

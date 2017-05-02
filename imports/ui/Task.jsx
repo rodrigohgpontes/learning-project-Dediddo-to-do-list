@@ -396,11 +396,10 @@ class Task extends Component {
 						</div>
 						
 						<div className="col-12 card-size not-todo">
-									
-						<p><span>priority: </span></p>
-									<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>Low</p>
-									<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>Medium</p>
-									<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>High</p>				
+							<p><span>priority: </span></p>
+							<p className={this.props.task.priority === "low" ? "tagactive" : ''} ref={"priority-low"} onClick={() => this.handleSubmitPriority(this.props.task._id, "low")}>Low</p>
+							<p className={this.props.task.priority === "medium" ? "tagactive" : ''} ref={"priority-medium"} onClick={() => this.handleSubmitPriority(this.props.task._id, "medium")}>Medium</p>
+							<p className={this.props.task.priority === "high" ? "tagactive" : ''} ref={"priority-high"} onClick={() => this.handleSubmitPriority(this.props.task._id, "high")}>High</p>				
 						</div>						
 						
 						<div className="col-12 card-tags not-todo">
