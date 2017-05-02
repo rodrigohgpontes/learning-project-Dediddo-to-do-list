@@ -487,7 +487,7 @@ class Detail extends Component {
 			<p className={this.props.detail.checked ? "check-checked col-1 check" : "col-1 check"} onClick={() => this.toggleChecked(this)}>&#10003;</p>
 			<p className={this.props.detail.checked ? "detail-checked col-10" : "col-10"} onClick={() => this.props.handleDetailClick(this.props.detail._id)}> <span>{this.props.detail.text} </span>
 			</p>
-			<button type="button" aria-label="Close" className="delete-detail close col-1" onClick={this.deleteThisDetail.bind(this)}>
+			<button type="button" aria-label="Close" className="delete-detail close col-1 not-todo" onClick={this.deleteThisDetail.bind(this)}>
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
